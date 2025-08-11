@@ -1,0 +1,15 @@
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  env: {
+    SALESFORCE_LOGIN_URL: process.env.SALESFORCE_LOGIN_URL,
+    SALESFORCE_CLIENT_ID: process.env.SALESFORCE_CLIENT_ID,
+    SALESFORCE_CLIENT_SECRET: process.env.SALESFORCE_CLIENT_SECRET,
+    SALESFORCE_REDIRECT_URI: process.env.SALESFORCE_REDIRECT_URI,
+    SALESFORCE_REFRESH_TOKEN: process.env.SALESFORCE_REFRESH_TOKEN,
+    SALESFORCE_INSTANCE_URL: process.env.SALESFORCE_INSTANCE_URL,
+    NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN: process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN,
+  },
+};
+
+module.exports = nextConfig;

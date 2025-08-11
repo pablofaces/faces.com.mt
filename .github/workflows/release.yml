@@ -1,0 +1,41 @@
+name: Deploy to DigitalOcean
+
+on:
+  release:
+    types: [published]  # Se ejecuta cuando se publica un release
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Log in to GitHub Container Registry
+        run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" --password-stdin
+
+      - name: SSH into DigitalOcean and deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DO_DROPLET_IP }}
+          username: root
+          key: ${{ secrets.DO_SSH_PRIVATE_KEY }}
+          script: |
+            echo "📦 Pulling latest Docker image..."
+            docker pull ghcr.io/${{ secrets.GHCR_USERNAME }}/quotes-maps:latest
+
+            echo "🛑 Stopping existing container..."
+            docker stop quotes-maps || true
+            docker rm quotes-maps || true
+
+
+            echo "🚀 Running new container with Salesforce env variables..."
+            docker run -d -p 3000:3000 --name quotes-maps \
+              -e SALESFORCE_LOGIN_URL=${{ secrets.SALESFORCE_LOGIN_URL }} \
+              -e SALESFORCE_CLIENT_ID=${{ secrets.SALESFORCE_CLIENT_ID }} \
+              -e SALESFORCE_CLIENT_SECRET=${{ secrets.SALESFORCE_CLIENT_SECRET }} \
+              -e SALESFORCE_REDIRECT_URI=${{ secrets.SALESFORCE_REDIRECT_URI }} \
+              -e SALESFORCE_REFRESH_TOKEN=${{ secrets.SALESFORCE_REFRESH_TOKEN }} \
+              -e SALESFORCE_INSTANCE_URL=${{ secrets.SALESFORCE_INSTANCE_URL }} \
+              ghcr.io/${{ secrets.GHCR_USERNAME }}/quotes-maps:latest

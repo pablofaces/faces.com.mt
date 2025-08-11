@@ -1,0 +1,23 @@
+name: Deploy to GitHub Container Registry
+
+on:
+  push:
+    branches:
+      - main  # Se ejecuta cuando se hace push a main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Log in to GitHub Container Registry
+        run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" --password-stdin
+
+      - name: Build Docker image
+        run: |
+          docker build --no-cache --build-arg NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=${{ secrets.MAPBOX_ACCESS_TOKEN }} -t ghcr.io/${{ secrets.GHCR_USERNAME }}/quotes-maps:latest .
+
+      - name: Push Docker image to GHCR
+        run: docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/quotes-maps:latest
