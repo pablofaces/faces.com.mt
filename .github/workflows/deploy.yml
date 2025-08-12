@@ -17,7 +17,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build --no-cache --build-arg NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=${{ secrets.MAPBOX_ACCESS_TOKEN }} -t ghcr.io/${{ secrets.GHCR_USERNAME }}/quotes-maps:latest .
+          docker build --no-cache -t ghcr.io/${{ secrets.GHCR_USERNAME }}/faces-webpage:latest .
 
       - name: Push Docker image to GHCR
-        run: docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/quotes-maps:latest
+        run: docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/faces-webpage:latest

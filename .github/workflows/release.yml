@@ -23,19 +23,19 @@ jobs:
           key: ${{ secrets.DO_SSH_PRIVATE_KEY }}
           script: |
             echo "📦 Pulling latest Docker image..."
-            docker pull ghcr.io/${{ secrets.GHCR_USERNAME }}/quotes-maps:latest
+            docker pull ghcr.io/${{ secrets.GHCR_USERNAME }}/faces-webpage:latest
 
             echo "🛑 Stopping existing container..."
-            docker stop quotes-maps || true
-            docker rm quotes-maps || true
+            docker stop faces-webpage || true
+            docker rm faces-webpage || true
 
 
             echo "🚀 Running new container with Salesforce env variables..."
-            docker run -d -p 3000:3000 --name quotes-maps \
+            docker run -d -p 3000:3000 --name faces-webpage \
               -e SALESFORCE_LOGIN_URL=${{ secrets.SALESFORCE_LOGIN_URL }} \
               -e SALESFORCE_CLIENT_ID=${{ secrets.SALESFORCE_CLIENT_ID }} \
               -e SALESFORCE_CLIENT_SECRET=${{ secrets.SALESFORCE_CLIENT_SECRET }} \
               -e SALESFORCE_REDIRECT_URI=${{ secrets.SALESFORCE_REDIRECT_URI }} \
               -e SALESFORCE_REFRESH_TOKEN=${{ secrets.SALESFORCE_REFRESH_TOKEN }} \
               -e SALESFORCE_INSTANCE_URL=${{ secrets.SALESFORCE_INSTANCE_URL }} \
-              ghcr.io/${{ secrets.GHCR_USERNAME }}/quotes-maps:latest
+              ghcr.io/${{ secrets.GHCR_USERNAME }}/faces-webpage:latest

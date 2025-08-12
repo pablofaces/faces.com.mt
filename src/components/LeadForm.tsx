@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-// import { Textarea } from "@/components/ui/textarea";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { CheckCircle } from "lucide-react";
 import FormData from "@/interfaces/formData";
@@ -174,21 +173,6 @@ export const LeadForm = () => {
               className="border-accent/30 focus:border-accent focus:ring-accent/20"
             />
           </div>
-
-          {/* <div className="space-y-2">
-            <Label htmlFor="message" className="text-foreground">
-              Message
-            </Label>
-            <Textarea
-              id="message"
-              name="message"
-              required
-              value={formData.message}
-              onChange={handleInputChange}
-              rows={4}
-              className="border-accent/30 focus:border-accent focus:ring-accent/20 resize-none"
-            />
-          </div> */}
 
           <div>
             <Button
