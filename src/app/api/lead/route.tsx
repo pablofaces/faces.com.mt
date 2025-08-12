@@ -3,6 +3,7 @@ import { NextResponse, NextRequest } from "next/server";
 // import { confirmQuote, uploadPDFBufferToSalesforce } from "./quoteService";
 import FormData from "@/interfaces/formData";
 import { saveLead } from "./leadService";
+import Lead from "@/interfaces/lead";
 
 // Security utilities for data sanitization
 function sanitizeString(input: string): string {
@@ -36,14 +37,14 @@ function sanitizePhone(phone: string): string {
   return phone.replace(/[^\d\s+()-]/g, '').trim().slice(0, 20);
 }
 
-function validateAndSanitizeFormData(data: any): FormData | null {
+function validateAndSanitizeFormData(data: FormData): Lead | null {
   try {
     // Check if data exists and is an object
     if (!data || typeof data !== 'object') {
       return null;
     }
 
-    const sanitized: any = {
+    const sanitized: Lead = {
       FirstName: sanitizeString(data['given-name'] || ''),
       LastName: sanitizeString(data['family-name'] || ''),
       Email: sanitizeEmail(data.email || ''),
@@ -72,8 +73,8 @@ function validateAndSanitizeFormData(data: any): FormData | null {
 export async function POST(request: NextRequest) {
   try {
     // Rate limiting check (basic implementation)
-    const forwardedFor = request.headers.get('x-forwarded-for');
-    const ip = forwardedFor?.split(',')[0]?.trim() || 'unknown';
+    // const forwardedFor = request.headers.get('x-forwarded-for');
+    // const ip = forwardedFor?.split(',')[0]?.trim() || 'unknown';
     
     // Check content type
     const contentType = request.headers.get('content-type');
@@ -87,7 +88,7 @@ export async function POST(request: NextRequest) {
     const rawData = await request.json();
     
     // Validate and sanitize the form data
-    const formData = validateAndSanitizeFormData(rawData);
+    const formData = validateAndSanitizeFormData(rawData) as Lead;
 
     if (!formData) {
       return NextResponse.json(
@@ -96,7 +97,7 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    const result = await saveLead(formData);
+    await saveLead(formData);
 
     return NextResponse.json({
       message: 'Lead data received successfully',

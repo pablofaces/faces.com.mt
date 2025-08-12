@@ -33,7 +33,7 @@ const Index: React.FC = () => {
           </div>
           <div className="text-center md:text-left">
             <p className="text-xl md:text-3xl text-white/90 max-w-2xl">
-              Faces manages the largest outdoor media network on the island. From high-traffic street to pedestrian hotspots.
+              Faces manages the largest outdoor media network on the island. From high-traffic streets to pedestrian hotspots.
               <br /><b>We put your brand where your customers are.</b>
             </p>
           </div>
