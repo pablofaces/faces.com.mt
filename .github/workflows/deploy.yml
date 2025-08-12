@@ -3,7 +3,7 @@ name: Deploy to GitHub Container Registry
 on:
   push:
     branches:
-      - main  # Se ejecuta cuando se hace push a main
+      - master  # Se ejecuta cuando se hace push a main
 
 jobs:
   build-and-push:
