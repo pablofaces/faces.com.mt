@@ -47,7 +47,7 @@ export const LeadForm = () => {
       <Card className="w-full max-w-md bg-gradient-card shadow-glow border-accent/20">
         <CardContent className="pt-8 pb-8 text-center">
           <div className="flex flex-col items-center space-y-4">
-            <CheckCircle className="h-16 w-16 text-accent" />
+            <CheckCircle className="h-16 w-16 text-primary" />
             <h2 className="text-2xl font-bold text-foreground">
               Message sent!
             </h2>
