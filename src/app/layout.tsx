@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Faces | Map quotes",
-  description: "Map to show locations of quotes",
+  title: "Faces ",
+  description: "Faces web page",
 };
 
 export default function RootLayout({
