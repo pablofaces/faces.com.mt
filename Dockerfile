@@ -11,10 +11,6 @@ RUN npm install --frozen-lockfile
 # Copiar el resto del código
 COPY . . 
 
-# Definir la variable de entorno en el build
-ARG NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
-ENV NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=${NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
-
 # Construir la aplicación
 RUN npm run build
 
