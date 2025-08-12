@@ -61,18 +61,18 @@ export const LeadForm = () => {
   }
 
   return (
-    <Card className="w-full max-w-md bg-gradient-card shadow-elegant border-accent/20">
+    <Card className="w-full max-w-full md:max-w-md bg-gradient-card shadow-elegant border-accent/20">
       <CardHeader className="text-center">
         <CardTitle className="text-2xl font-bold text-foreground">
-          Contact us
+          Get in touch
         </CardTitle>
-        <p className="text-muted-foreground">
+        <p className="text-muted-foreground text-left">
           We would love to know more about your project
         </p>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4" autoComplete="on">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="given-name" className="text-foreground">
                 First name
