@@ -64,9 +64,9 @@ export const LeadForm = () => {
     <Card className="w-full max-w-md bg-gradient-card shadow-elegant border-accent/20">
       <CardHeader className="text-center">
         <CardTitle className="text-2xl font-bold text-foreground">
-          Contact us
+          Get in touch
         </CardTitle>
-        <p className="text-muted-foreground">
+        <p className="text-muted-foreground text-left">
           We would love to know more about your project
         </p>
       </CardHeader>
