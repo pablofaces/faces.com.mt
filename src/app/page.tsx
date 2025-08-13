@@ -52,7 +52,7 @@ const Index: React.FC = () => {
               <div className="text-center lg:text-left grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-8 max-w-5xl mx-auto lg:mx-0">
                 <div>
                   <p className="text-xs md:text-base text-white/90 mb-1">
-                    SELECT YOUR LOCATIONS YOUR DATES
+                    SELECT YOUR LOCATIONS, YOUR DATES
                   </p>
                   <b className="text-xs md:text-base text-white">
                     MAKE YOUR BRAND IMPOSSIBLE TO MISS.
