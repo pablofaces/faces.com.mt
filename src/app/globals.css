@@ -5,9 +5,7 @@
 /* Import custom fonts */
 @font-face {
   font-family: 'Sprayerz Demo-B85';
-  src: url('/fonts/sprayerz-demo-b85.woff2') format('woff2'),
-       url('/fonts/sprayerz-demo-b85.woff') format('woff'),
-       url('/fonts/SprayerzDEMO-B85.ttf') format('truetype');
+  src: url('/fonts/SprayerzDEMO-B85.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
