@@ -6,25 +6,27 @@ WORKDIR /app
 
 # Copiar archivos necesarios para instalar dependencias
 COPY package.json package-lock.json ./
-RUN npm install --frozen-lockfile
+RUN npm ci
 
 # Copiar el resto del código
 COPY . . 
 
 # Construir la aplicación
+ENV NODE_ENV=production
 RUN npm run build
 
 # Etapa final para producción
-FROM node:22.11.0-alpine
+FROM node:22.11.0-alpine AS runner
 WORKDIR /app
 
 # Copiar solo los archivos necesarios de la fase de construcción
-COPY --from=builder /app/.next .next
-COPY --from=builder /app/node_modules node_modules
-COPY --from=builder /app/package.json ./
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_OPTIONS=--max-old-space-size=512
+
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public public
-COPY --from=builder /app/next.config.ts ./
-COPY --from=builder /app/tsconfig.json ./
 
 # Exponer el puerto
 EXPOSE 3000

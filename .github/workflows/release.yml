@@ -33,6 +33,7 @@ jobs:
 
             echo "🚀 Running new container with Salesforce env variables..."
             docker run -d -p 3000:3000 --name faces-webpage \
+              -e NODE_OPTIONS=--max-old-space-size=512 \
               -e SALESFORCE_LOGIN_URL=${{ secrets.SALESFORCE_LOGIN_URL }} \
               -e SALESFORCE_CLIENT_ID=${{ secrets.SALESFORCE_CLIENT_ID }} \
               -e SALESFORCE_CLIENT_SECRET=${{ secrets.SALESFORCE_CLIENT_SECRET }} \
