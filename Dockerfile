@@ -5,28 +5,23 @@ FROM node:22.11.0-alpine AS builder
 WORKDIR /app
 
 # Copiar archivos necesarios para instalar dependencias
-COPY package.json package-lock.json ./
-RUN npm ci
+COPY package*.json ./
+COPY tsconfig.json ./
+COPY next.config.ts ./
+COPY .nvmrc ./
+
+RUN npm i
 
 # Copiar el resto del código
 COPY . . 
 
+# Verificar que los archivos estén presentes
+RUN ls -la
+RUN ls -la src/
+RUN cat tsconfig.json
+
 # Construir la aplicación
-ENV NODE_ENV=production
 RUN npm run build
-
-# Etapa final para producción
-FROM node:22.11.0-alpine AS runner
-WORKDIR /app
-
-# Copiar solo los archivos necesarios de la fase de construcción
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV NODE_OPTIONS=--max-old-space-size=512
-
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
-COPY --from=builder /app/public public
 
 # Exponer el puerto
 EXPOSE 3000
